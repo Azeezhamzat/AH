@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Azeez Adewale Hamzat</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Insights on collective intelligence, AI research, cross-cultural experiences, and personal reflections from PhD researcher Azeez Adewale Hamzat.">
+    <meta name="keywords" content="Collective Intelligence, AI Research, Group Decision-Making, Cross-Cultural, Personal Reflection, Academic Blog, Nigeria, Morocco, Ireland">
+    <meta name="author" content="Azeez Adewale Hamzat">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Blog | Azeez Adewale Hamzat">
+    <meta property="og:description" content="Insights on collective intelligence, AI research, and cross-cultural experiences from a PhD researcher.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://azeezhamzat.com/blog.html">
+    <meta property="og:image" content="images/blog-og-image.jpg">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@Azeez_A_Hamzat">
+    <meta name="twitter:title" content="Blog | Azeez Adewale Hamzat">
+    <meta name="twitter:description" content="Insights on collective intelligence, AI research, and cross-cultural experiences.">
+    <meta name="twitter:image" content="images/blog-og-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://azeezhamzat.com/blog.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/AzeezHamzat.png" type="image/png">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --background-light: #f8f9fa;
+            --background-white: #ffffff;
+            --border-color: #e9ecef;
+            --shadow: 0 10px 30px rgba(44, 62, 80, 0.1);
+            --hover-shadow: 0 20px 40px rgba(44, 62, 80, 0.2);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: var(--background-white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--secondary-color);
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--background-light);
+            padding: 1rem 0;
+            margin-top: 80px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb-list {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .breadcrumb-list li {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb-list li:not(:last-child)::after {
+            content: '/';
+            margin-left: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb-list a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-list a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Blog Hero */
+        .blog-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/blue_network.jpg') center/cover;
+            opacity: 0.1;
+        }
+
+        .blog-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 4rem;
+            min-height: 100vh;
+        }
+
+        .blog-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        /* Blog Stats */
+        .blog-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .featured-post:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .featured-badge {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            border-radius: 15px;
+            z-index: 2;
+        }
+
+        .featured-image {
+            position: relative;
+            height: 300px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            overflow: hidden;
+        }
+
+        .featured-content {
+            padding: 2.5rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .featured-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .featured-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .featured-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .featured-title a:hover {
+            color: var(--secondary-color);
+        }
+
+        .featured-excerpt {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .featured-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: var(--background-light);
+            color: var(--text-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        /* Blog Posts Grid */
+        .posts-section {
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--border-color);
+        }
+
+        .posts-grid {
+            display: grid;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            min-height: 180px;
+        }
+
+        .post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .post-image {
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .post-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .post-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .post-title a:hover {
+            color: var(--secondary-color);
+        }
+
+        .post-excerpt {
+            color: var(--text-light);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-tag {
+            background: var(--background-light);
+            color: var(--text-dark);
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-widget {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar-widget h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .about-widget {
+            text-align: center;
+        }
+
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .about-text {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .categories-list,
+        .recent-posts-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .categories-list li,
+        .recent-posts-list li {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .categories-list li:last-child,
+        .recent-posts-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .categories-list a,
+        .recent-posts-list a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .categories-list a:hover,
+        .recent-posts-list a:hover {
+            color: var(--secondary-color);
+        }
+
+        .post-count {
+            background: var(--background-light);
+            color: var(--text-light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag-cloud-item {
+            background: var(--background-light);
+            color: var(--text-dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .blog-nav-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .nav-stat {
+            padding: 1rem;
+            background: var(--background-light);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .nav-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+
+        /* Pagination Styles */
+        .pagination-container {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .pagination-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--background-light);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-numbers {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .pagination-number {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--background-light);
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagination-number:hover,
+        .pagination-number.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .pagination-number.active {
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Newsletter */
+        .newsletter-widget {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter-widget h3 {
+            color: white;
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .newsletter-form {
+            margin-top: 1rem;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .newsletter-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        /* Search Widget */
+        .search-form {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 3rem 0.8rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* Archive Widget */
+        .archive-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .archive-list li {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .archive-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .archive-list a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .archive-list a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-btn {
+            background: var(--background-light);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+
+            .blog-title {
+                font-size: 2rem;
+            }
+
+            .featured-image {
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .featured-content {
+                padding: 1.5rem;
+            }
+
+            .featured-title {
+                font-size: 1.5rem;
+            }
+
+            .post-card {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .post-image {
+                height: 150px;
+                font-size: 2rem;
+            }
+
+            .sidebar {
+                order: -1;
+            }
+
+            .blog-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero {
+                padding: 3rem 1rem;
+            }
+
+            .blog-title {
+                font-size: 1.8rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .featured-content {
+                padding: 1rem;
+            }
+
+            .post-content {
+                padding: 1rem;
+            }
+
+            .blog-stats {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">Azeez Adewale Hamzat</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#research">Research</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#publications">Publications</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+        <div class="breadcrumb-nav">
+            <ol class="breadcrumb-list">
+                <li><a href="index.html">Home</a></li>
+                <li aria-current="page">Blog</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="blog-hero-content">
+            <h1 class="blog-title">Reflections & Insights</h1>
+            <p class="blog-subtitle">
+                Exploring collective intelligence, cross-cultural experiences, and the journey of research discovery through personal reflections and academic insights.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="blog-content">
+            <!-- Blog Stats -->
+            <div class="blog-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalPostsCount">13</span>
+                    <span class="stat-label">Published Posts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1.2K</span>
+                    <span class="stat-label">Total Reads</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Posts</button>
+                <button class="filter-btn" data-filter="collective-intelligence">Collective Intelligence</button>
+                <button class="filter-btn" data-filter="personal">Personal Reflection</button>
+                <button class="filter-btn" data-filter="research">Research</button>
+                <button class="filter-btn" data-filter="cross-cultural">Cross-Cultural</button>
+                <button class="filter-btn" data-filter="technology">Technology</button>
+            </div>
+
+            <!-- Featured Post -->
+            <article class="featured-post">
+                <div class="featured-image">
+                    <div class="featured-badge">Featured</div>
+                    <img src="images/Journey Through Time and Sky.png" alt="Journey Through Time and Sky" style="width: 40%; height: 120%; object-fit: cover;">
+                </div>
+                <div class="featured-content">
+                    <div class="featured-meta">
+                        <span><i class="fas fa-calendar-alt"></i> March 23, 2025</span>
+                        <span><i class="fas fa-clock"></i> 12 min read</span>
+                        <span><i class="fas fa-tag"></i> Personal Reflection</span>
+                    </div>
+                    <h2 class="featured-title">
+                        <a href="dear-me.html">Dear Me; عزيزي أنا</a>
+                    </h2>
+                    <p class="featured-excerpt">
+                        There's something profoundly intimate about writing a letter to yourself. The concept of having an honest conversation with yourself across time opens doorways to reflection that other forms of introspection rarely achieve.
+                    </p>
+                    <div class="featured-tags">
+                        <span class="tag">Personal Growth</span>
+                        <span class="tag">Self-Reflection</span>
+                        <span class="tag">Cross-Cultural</span>
+                        <span class="tag">Journey</span>
+                        <span class="tag">Morocco</span>
+                        <span class="tag">Nigeria</span>
+                    </div>
+                    <a href="dear-me.html" class="read-more">
+                        Read Full Article <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Recent Posts -->
+            <section class="posts-section">
+                <h2 class="section-title">Recent Posts</h2>
+                <div class="posts-grid">
+                    <article class="post-card" data-category="cross-cultural">
+                        <div class="post-image"><img src="images/traveller.png" alt="traveller icon" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> February 15, 2025</span>
+                                <span><i class="fas fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="are_you_a_traveller.html">Are you a traveller or a migrant?</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Exploring the fine line between traveling and migrating, and how our motivations shape our experiences in new cultures and environments.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Identity</span>
+                                <span class="post-tag">Travel</span>
+                                <span class="post-tag">Culture</span>
+                            </div>
+                            <a href="are_you_a_traveller.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="collective-intelligence">
+                        <div class="post-image"><img src="images/symphony.png" alt="genius icon" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> January 5, 2025</span>
+                                <span><i class="fas fa-clock"></i> 10 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="forget_the_lone_genius.html">Forget the Lone Genius</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Why collective intelligence trumps individual brilliance in solving complex problems, and how we can harness the power of groups.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Collective Intelligence</span>
+                                <span class="post-tag">Innovation</span>
+                                <span class="post-tag">Research</span>
+                            </div>
+                            <a href="forget_the_lone_genius.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="research">
+                        <div class="post-image">
+                            <img src="images/invisible hand.png" alt="invisible-hand's picture" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> February 1, 2025</span>
+                                <span><i class="fas fa-clock"></i> 6 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="invisible-hand.html">The Invisible Hand</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Examining the unseen forces that guide group decision-making and how understanding them can improve collective outcomes.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Group Dynamics</span>
+                                <span class="post-tag">Decision Making</span>
+                                <span class="post-tag">Psychology</span>
+                            </div>
+                            <a href="invisible-hand.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="technology">
+                        <div class="post-image">🤖</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> December 20, 2024</span>
+                                <span><i class="fas fa-clock"></i> 7 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="ai-bias-amplification.html">When AI Amplifies Human Bias</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                How artificial intelligence systems can perpetuate and amplify existing biases in group decision-making processes.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">AI Ethics</span>
+                                <span class="post-tag">Bias</span>
+                                <span class="post-tag">Technology</span>
+                            </div>
+                            <a href="ai-bias-amplification.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="personal">
+                        <div class="post-image">🌱</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> December 5, 2024</span>
+                                <span><i class="fas fa-clock"></i> 9 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="seeds-of-change.html">Seeds of Change: From Agriculture to Intelligence</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Reflecting on my journey from studying crop protection to researching collective intelligence, and the surprising connections between the two.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Career Change</span>
+                                <span class="post-tag">Agriculture</span>
+                                <span class="post-tag">Personal Growth</span>
+                            </div>
+                            <a href="seeds-of-change.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="collective-intelligence">
+                        <div class="post-image">🎯</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> November 18, 2024</span>
+                                <span><i class="fas fa-clock"></i> 11 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="wisdom-of-crowds.html">The Wisdom of Crowds: Myth or Reality?</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                A critical examination of when groups make better decisions than individuals, and when they fall into the trap of groupthink.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Group Intelligence</span>
+                                <span class="post-tag">Decision Making</span>
+                                <span class="post-tag">Research</span>
+                            </div>
+                            <a href="wisdom-of-crowds.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="research">
+                        <div class="post-image">📊</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> October 15, 2024</span>
+                                <span><i class="fas fa-clock"></i> 13 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="measuring-collective-intelligence.html">Measuring Collective Intelligence: Beyond the Sum of Parts</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                How do we quantify the intelligence of groups? Exploring current methodologies and proposing new frameworks for measurement.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Measurement</span>
+                                <span class="post-tag">Methodology</span>
+                                <span class="post-tag">Academic</span>
+                            </div>
+                            <a href="measuring-collective-intelligence.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="collective-intelligence" data-page="2">
+                        <div class="post-image">🎭</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> September 10, 2024</span>
+                                <span><i class="fas fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="diversity-paradox.html">The Diversity Paradox in Group Decision-Making</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Why diverse groups often make better decisions, but can also face significant coordination challenges.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Diversity</span>
+                                <span class="post-tag">Group Dynamics</span>
+                                <span class="post-tag">Paradox</span>
+                            </div>
+                            <a href="diversity-paradox.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="technology" data-page="2">
+                        <div class="post-image">🔬</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> August 22, 2024</span>
+                                <span><i class="fas fa-clock"></i> 10 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="digital-facilitation-tools.html">Digital Tools for Better Group Facilitation</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                A review of emerging digital platforms that enhance collaborative decision-making and reduce meeting fatigue.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Digital Tools</span>
+                                <span class="post-tag">Facilitation</span>
+                                <span class="post-tag">Collaboration</span>
+                            </div>
+                            <a href="digital-facilitation-tools.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    
+
+                    <article class="post-card" data-category="research" data-page="3">
+                        <div class="post-image">📈</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> July 18, 2024</span>
+                                <span><i class="fas fa-clock"></i> 12 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="farmer-clusters-nigeria.html">Farmer Clusters in Nigeria: A Case Study in Collective Action</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Analyzing how smallholder farmers in Nigeria organize collectively and the lessons for understanding group intelligence in resource-constrained environments.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Nigeria</span>
+                                <span class="post-tag">Agriculture</span>
+                                <span class="post-tag">Case Study</span>
+                            </div>
+                            <a href="farmer-clusters-nigeria.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="personal" data-page="3">
+                        <div class="post-image">
+                            <img src="images/mirror.png" alt="mirror icon" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> February 15, 2025</span>
+                                <span><i class="fas fa-clock"></i> 9 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="the-mirror-effect.html">The Mirror Effect</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Preparing for the next chapter of my research journey at TU Dublin and what I hope to discover about AI-facilitated group decision-making.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag">Dublin</span>
+                                <span class="post-tag">PhD</span>
+                                <span class="post-tag">Future Plans</span>
+                            </div>
+                            <a href="the-mirror-effect.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container fade-in">
+                    <div class="pagination-info">
+                        <span>Showing <strong id="postsRangeStart">1</strong>-<strong id="postsRangeEnd">8</strong> of <strong id="totalPosts">15</strong> posts</span>
+                    </div>
+                    
+                    <nav class="pagination" aria-label="Blog pagination">
+                        <button class="pagination-btn prev-btn" onclick="goToPage('prev')" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        
+                        <div class="pagination-numbers">
+                            <button class="pagination-number active" data-page="1" onclick="goToPage(1)">1</button>
+                            <button class="pagination-number" data-page="2" onclick="goToPage(2)">2</button>
+                            <button class="pagination-number" data-page="3" onclick="goToPage(3)">3</button>
+                        </div>
+                        
+                        <button class="pagination-btn next-btn" onclick="goToPage('next')">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Blog Navigation Stats -->
+            <div class="sidebar-widget fade-in">
+                <h3>Blog Navigation</h3>
+                <div class="blog-nav-stats">
+                    <div class="nav-stat">
+                        <span class="nav-number" id="currentPage">1</span>
+                        <span class="nav-label">Current Page</span>
+                    </div>
+                    <div class="nav-stat">
+                        <span class="nav-number" id="totalPages">3</span>
+                        <span class="nav-label">Total Pages</span>
+                    </div>
+                    <div class="nav-stat">
+                        <span class="nav-number" id="postsShown">8</span>
+                        <span class="nav-label">Posts Shown</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Widget -->
+            <div class="sidebar-widget fade-in">
+                <h3>Search Posts</h3>
+                <form class="search-form" onsubmit="searchPosts(event)">
+                    <input type="text" class="search-input" placeholder="Search articles..." id="searchInput">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="sidebar-widget fade-in">
+                <h3>Categories</h3>
+                <ul class="categories-list">
+                    <li><a href="#" data-filter="collective-intelligence">Collective Intelligence <span class="post-count">5</span></a></li>
+                    <li><a href="#" data-filter="personal">Personal Reflection <span class="post-count">3</span></a></li>
+                    <li><a href="#" data-filter="cross-cultural">Cross-Cultural <span class="post-count">3</span></a></li>
+                    <li><a href="#" data-filter="research">Research <span class="post-count">2</span></a></li>
+                    <li><a href="#" data-filter="technology">Technology <span class="post-count">2</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Recent Posts Widget -->
+            <div class="sidebar-widget fade-in">
+                <h3>Recent Posts</h3>
+                <ul class="recent-posts-list">
+                    <li><a href="dear-me.html">Dear Me; عزيزي أنا</a></li>
+                    <li><a href="are_you_a_traveller.html">Are you a traveller or a migrant?</a></li>
+                    <li><a href="forget_the_lone_genius.html">Forget the Lone Genius</a></li>
+                    <li><a href="invisible-hand.html">The Invisible Hand</a></li>
+                    <li><a href="ai-bias-amplification.html">When AI Amplifies Human Bias</a></li>
+                </ul>
+            </div>
+
+            <!-- Tags Cloud Widget -->
+            <div class="sidebar-widget fade-in">
+                <h3>Popular Tags</h3>
+                <div class="tags-cloud">
+                    <a href="#" class="tag-cloud-item">Collective Intelligence</a>
+                    <a href="#" class="tag-cloud-item">AI Ethics</a>
+                    <a href="#" class="tag-cloud-item">Cross-Cultural</a>
+                    <a href="#" class="tag-cloud-item">Group Dynamics</a>
+                    <a href="#" class="tag-cloud-item">Decision Making</a>
+                    <a href="#" class="tag-cloud-item">Research</a>
+                    <a href="#" class="tag-cloud-item">Personal Growth</a>
+                    <a href="#" class="tag-cloud-item">Innovation</a>
+                    <a href="#" class="tag-cloud-item">Morocco</a>
+                    <a href="#" class="tag-cloud-item">Nigeria</a>
+                    <a href="#" class="tag-cloud-item">PhD Journey</a>
+                    <a href="#" class="tag-cloud-item">Technology</a>
+                </div>
+            </div>
+
+            <!-- Archive Widget -->
+            <div class="sidebar-widget fade-in">
+                <h3>Archives</h3>
+                <ul class="archive-list">
+                    <li><a href="#">March 2025 <span class="post-count">2</span></a></li>
+                    <li><a href="#">February 2025 <span class="post-count">1</span></a></li>
+                    <li><a href="#">January 2025 <span class="post-count">2</span></a></li>
+                    <li><a href="#">December 2024 <span class="post-count">3</span></a></li>
+                    <li><a href="#">November 2024 <span class="post-count">2</span></a></li>
+                    <li><a href="#">October 2024 <span class="post-count">3</span></a></li>
+                    <li><a href="#">September 2024 <span class="post-count">2</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Widget -->
+            <div class="sidebar-widget newsletter-widget fade-in">
+                <h3>Stay Updated</h3>
+                <p style="margin-bottom: 1rem; font-size: 0.9rem;">
+                    Get the latest insights on collective intelligence and my research journey delivered to your inbox.
+                </p>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn">
+                        <i class="fas fa-paper-plane"></i> Subscribe
+                    </button>
+                </form>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://linkedin.com/in/azeezhamzat" class="social-link" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://x.com/Azeez_A_Hamzat" class="social-link" target="_blank" aria-label="Twitter">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+            <a href="https://facebook.com/azeez.seeker" class="social-link" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://instagram.com/ibnhamzah1" class="social-link" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://orcid.org/0000-0000-0000-0000" class="social-link" target="_blank" aria-label="ORCID">
+                <i class="fab fa-orcid"></i>
+            </a>
+            <a href="https://scholar.google.com" class="social-link" target="_blank" aria-label="Google Scholar">
+                <i class="fas fa-graduation-cap"></i>
+            </a>
+        </div>
+        <p>&copy; 2025 Azeez Adewale Hamzat | PhD Researcher in Collective Intelligence</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">
+            <i class="fas fa-quote-left"></i> Sprouting ideas for a better world <i class="fas fa-quote-right"></i>
+        </p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Pagination system
+        let currentPage = 1;
+        const postsPerPage = 8;
+        let filteredPosts = [];
+        let currentFilter = 'all';
+
+        function getAllPosts() {
+            return Array.from(document.querySelectorAll('.post-card'));
+        }
+
+        function getFilteredPosts(filter = 'all') {
+            const allPosts = getAllPosts();
+            if (filter === 'all') {
+                return allPosts;
+            }
+            return allPosts.filter(post => post.getAttribute('data-category') === filter);
+        }
+
+        function updatePaginationInfo() {
+            const totalPosts = filteredPosts.length;
+            const totalPages = Math.ceil(totalPosts / postsPerPage);
+            const start = (currentPage - 1) * postsPerPage + 1;
+            const end = Math.min(currentPage * postsPerPage, totalPosts);
+            
+            document.getElementById('postsRangeStart').textContent = totalPosts > 0 ? start : 0;
+            document.getElementById('postsRangeEnd').textContent = totalPosts > 0 ? end : 0;
+            document.getElementById('totalPosts').textContent = totalPosts;
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+            document.getElementById('postsShown').textContent = totalPosts > 0 ? (end - start + 1) : 0;
+        }
+
+        function updatePaginationButtons() {
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            
+            // Update prev/next buttons
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            if (prevBtn) prevBtn.disabled = currentPage === 1;
+            if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+
+            // Update pagination numbers
+            const paginationNumbers = document.querySelector('.pagination-numbers');
+            if (paginationNumbers) {
+                paginationNumbers.innerHTML = '';
+                
+                for (let i = 1; i <= totalPages; i++) {
+                    const btn = document.createElement('button');
+                    btn.className = `pagination-number ${i === currentPage ? 'active' : ''}`;
+                    btn.dataset.page = i;
+                    btn.textContent = i;
+                    btn.onclick = () => goToPage(i);
+                    paginationNumbers.appendChild(btn);
+                }
+            }
+
+            // Show/hide pagination container
+            const paginationContainer = document.querySelector('.pagination-container');
+            if (paginationContainer) {
+                paginationContainer.style.display = totalPages > 1 ? 'block' : 'none';
+            }
+        }
+
+        function showPage(page) {
+            const startIndex = (page - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            
+            // Hide all posts first
+            const allPosts = getAllPosts();
+            allPosts.forEach(post => {
+                post.style.display = 'none';
+            });
+
+            // Show posts for current page
+            filteredPosts.slice(startIndex, endIndex).forEach(post => {
+                post.style.display = 'grid';
+            });
+
+            updatePaginationButtons();
+            updatePaginationInfo();
+        }
+
+        function goToPage(page) {
+            if (page === 'prev') {
+                page = Math.max(1, currentPage - 1);
+            } else if (page === 'next') {
+                const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+                page = Math.min(totalPages, currentPage + 1);
+            }
+
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            if (page !== currentPage && page >= 1 && page <= totalPages) {
+                currentPage = page;
+                showPage(currentPage);
+                
+                // Smooth scroll to posts section
+                document.querySelector('.posts-section').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const postCards = document.querySelectorAll('.post-card');
+            const categoryLinks = document.querySelectorAll('.categories-list a[data-filter]');
+
+            function filterPosts(category) {
+                postCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (category === 'all' || cardCategory === category) {
+                        card.style.display = 'grid';
+                        card.classList.add('fade-in');
+                        setTimeout(() => card.classList.add('visible'), 100);
+                    } else {
+                        card.style.display = 'none';
+                        card.classList.remove('visible');
+                    }
+                });
+
+                // Update active filter button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`[data-filter="${category}"]`).classList.add('active');
+            }
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.getAttribute('data-filter');
+                    filterPosts(category);
+                });
+            });
+
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const category = link.getAttribute('data-filter');
+                    filterPosts(category);
+                    
+                    // Scroll to posts section
+                    document.querySelector('.posts-section').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        }
+
+        // Search functionality
+        function searchPosts(event) {
+            event.preventDefault();
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                // Reset to current filter if search is empty
+                filteredPosts = getFilteredPosts(currentFilter);
+            } else {
+                // Filter posts by search term within current filter
+                const baseFilteredPosts = getFilteredPosts(currentFilter);
+                filteredPosts = baseFilteredPosts.filter(card => {
+                    const title = card.querySelector('.post-title a').textContent.toLowerCase();
+                    const excerpt = card.querySelector('.post-excerpt').textContent.toLowerCase();
+                    const tags = Array.from(card.querySelectorAll('.post-tag')).map(tag => tag.textContent.toLowerCase());
+                    
+                    return title.includes(searchTerm) || 
+                           excerpt.includes(searchTerm) || 
+                           tags.some(tag => tag.includes(searchTerm));
+                });
+            }
+            
+            // Reset to page 1 and show results
+            currentPage = 1;
+            showPage(currentPage);
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('.newsletter-input').value;
+            
+            // Simulate subscription
+            alert(`Thank you! We've subscribed ${email} to our newsletter.`);
+            event.target.reset();
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-menu').classList.remove('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Back to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', () => {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+
+            // Update header background on scroll
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#ffffff';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navMenu = document.querySelector('.nav-menu');
+            const mobileBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Tag cloud interactions
+        document.querySelectorAll('.tag-cloud-item').forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tagText = tag.textContent.toLowerCase();
+                
+                // Search for posts containing this tag
+                const postCards = document.querySelectorAll('.post-card');
+                postCards.forEach(card => {
+                    const tags = Array.from(card.querySelectorAll('.post-tag')).map(t => t.textContent.toLowerCase());
+                    card.style.display = tags.some(t => t.includes(tagText)) ? 'grid' : 'none';
+                });
+
+                // Scroll to posts
+                document.querySelector('.posts-section').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, initializing blog...');
+            
+            // Initialize filtered posts with all posts
+            filteredPosts = getAllPosts();
+            
+            // Initialize filters
+            initializeFilters();
+            
+            // Show first page
+            currentPage = 1;
+            showPage(currentPage);
+            
+            console.log('Blog initialization complete');
+            console.log('Total posts found:', filteredPosts.length);
+        });
+
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log('Blog page load time:', loadTime + 'ms');
+            });
+        }
+    </script>
+</body>
+</html>
