@@ -59,6 +59,8 @@
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --animation-duration: 0.3s;
+            --vh: 1vh;
         }
 
         * {
@@ -72,6 +74,30 @@
             line-height: 1.6;
             color: var(--text-dark);
             overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 0 0 4px 4px;
+            z-index: 9999;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
         }
 
         /* Header */
@@ -83,6 +109,7 @@
             top: 0;
             z-index: 1000;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .nav-container {
@@ -100,6 +127,12 @@
             font-weight: 600;
             color: var(--primary-color);
             text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--secondary-color);
+            transform: translateY(-1px);
         }
 
         .nav-menu {
@@ -116,12 +149,14 @@
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 25px;
+            position: relative;
         }
 
         .nav-menu a:hover,
         .nav-menu a.active {
             color: var(--secondary-color);
             background: rgba(52, 152, 219, 0.1);
+            transform: translateY(-2px);
         }
 
         .mobile-menu-btn {
@@ -131,6 +166,32 @@
             font-size: 1.5rem;
             color: var(--primary-color);
             cursor: pointer;
+            min-width: 44px;
+            min-height: 44px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn[aria-expanded="true"] .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-btn[aria-expanded="true"] .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn[aria-expanded="true"] .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
         }
 
         /* Breadcrumb */
@@ -211,6 +272,7 @@
             font-weight: 700;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 0.8s ease-out;
         }
 
         .blog-subtitle {
@@ -218,6 +280,33 @@
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Loading state */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-spinner.visible {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Main Content */
@@ -237,7 +326,7 @@
             width: 100%;
         }
 
-        /* Blog Stats */
+        /* Enhanced Blog Stats */
         .blog-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -247,11 +336,28 @@
             background: white;
             border-radius: 15px;
             box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
         }
 
         .stat-item {
             text-align: center;
             padding: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
         }
 
         .stat-number {
@@ -259,6 +365,12 @@
             font-weight: 700;
             color: var(--secondary-color);
             display: block;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover .stat-number {
+            color: var(--accent-color);
+            transform: scale(1.1);
         }
 
         .stat-label {
@@ -267,7 +379,7 @@
             margin-top: 0.5rem;
         }
 
-        /* Featured Post */
+        /* Enhanced Featured Post */
         .featured-post {
             background: white;
             border-radius: 20px;
@@ -276,6 +388,7 @@
             margin-bottom: 3rem;
             transition: all 0.3s ease;
             border: 1px solid var(--border-color);
+            position: relative;
         }
 
         .featured-post:hover {
@@ -294,6 +407,12 @@
             left: 1rem;
             border-radius: 15px;
             z-index: 2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .featured-image {
@@ -308,6 +427,17 @@
             overflow: hidden;
         }
 
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-post:hover .featured-image img {
+            transform: scale(1.05);
+        }
+
         .featured-content {
             padding: 2.5rem;
         }
@@ -319,6 +449,7 @@
             margin-bottom: 1rem;
             color: var(--text-light);
             font-size: 0.9rem;
+            flex-wrap: wrap;
         }
 
         .featured-meta span {
@@ -367,11 +498,13 @@
             font-size: 0.8rem;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .tag:hover {
             background: var(--secondary-color);
             color: white;
+            transform: translateY(-2px);
         }
 
         .read-more {
@@ -382,14 +515,88 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            border: 2px solid var(--secondary-color);
         }
 
         .read-more:hover {
-            color: var(--accent-color);
+            background: var(--secondary-color);
+            color: white;
             transform: translateX(5px);
         }
 
-        /* Blog Posts Grid */
+        /* Enhanced Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-buttons::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-success);
+        }
+
+        .filter-btn {
+            background: var(--background-light);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .filter-btn .count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 0.3rem;
+        }
+
+        /* Enhanced Posts Grid */
         .posts-section {
             margin-top: 2rem;
             width: 100%;
@@ -402,6 +609,17 @@
             margin-bottom: 2rem;
             padding-bottom: 1rem;
             border-bottom: 3px solid var(--border-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--gradient-primary);
         }
 
         .posts-grid {
@@ -420,6 +638,14 @@
             display: grid;
             grid-template-columns: 200px 1fr;
             min-height: 180px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .post-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .post-card:hover {
@@ -438,6 +664,17 @@
             overflow: hidden;
         }
 
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .post-card:hover .post-image img {
+            transform: scale(1.1);
+        }
+
         .post-content {
             padding: 1.5rem;
             display: flex;
@@ -452,6 +689,7 @@
             margin-bottom: 0.5rem;
             color: var(--text-light);
             font-size: 0.8rem;
+            flex-wrap: wrap;
         }
 
         .post-meta span {
@@ -503,9 +741,63 @@
             border-radius: 10px;
             font-size: 0.7rem;
             border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        /* Sidebar */
+        .post-tag:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* No results state */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .no-results h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .no-results p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .clear-filters-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .clear-filters-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Sidebar */
         .sidebar {
             display: flex;
             flex-direction: column;
@@ -518,6 +810,24 @@
             border-radius: 15px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        .sidebar-widget:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
         }
 
         .sidebar-widget h3 {
@@ -529,52 +839,79 @@
             border-bottom: 2px solid var(--border-color);
         }
 
-        .about-widget {
-            text-align: center;
+        /* Enhanced Search Widget */
+        .search-form {
+            position: relative;
         }
 
-        .author-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--gradient-primary);
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 3rem 0.8rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
 
-        .about-text {
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
             color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
         }
 
+        .search-btn:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Enhanced Categories and Lists */
         .categories-list,
-        .recent-posts-list {
+        .recent-posts-list,
+        .archive-list {
             list-style: none;
             padding: 0;
         }
 
         .categories-list li,
-        .recent-posts-list li {
+        .recent-posts-list li,
+        .archive-list li {
             margin-bottom: 0.8rem;
             padding-bottom: 0.8rem;
             border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
         .categories-list li:last-child,
-        .recent-posts-list li:last-child {
+        .recent-posts-list li:last-child,
+        .archive-list li:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
 
+        .categories-list li:hover,
+        .recent-posts-list li:hover,
+        .archive-list li:hover {
+            background: var(--background-light);
+            padding-left: 0.5rem;
+            border-radius: 5px;
+        }
+
         .categories-list a,
-        .recent-posts-list a {
+        .recent-posts-list a,
+        .archive-list a {
             color: var(--text-dark);
             text-decoration: none;
             transition: color 0.3s ease;
@@ -584,7 +921,8 @@
         }
 
         .categories-list a:hover,
-        .recent-posts-list a:hover {
+        .recent-posts-list a:hover,
+        .archive-list a:hover {
             color: var(--secondary-color);
         }
 
@@ -594,53 +932,16 @@
             padding: 0.2rem 0.5rem;
             border-radius: 10px;
             font-size: 0.8rem;
-        }
-
-        .tags-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tag-cloud-item {
-            background: var(--background-light);
-            color: var(--text-dark);
-            padding: 0.4rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            text-decoration: none;
-            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
         }
 
-        .blog-nav-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            text-align: center;
+        .categories-list a:hover .post-count,
+        .archive-list a:hover .post-count {
+            background: var(--secondary-color);
+            color: white;
         }
 
-        .nav-stat {
-            padding: 1rem;
-            background: var(--background-light);
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-        }
-
-        .nav-number {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-        }
-
-        .nav-label {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-top: 0.3rem;
-        }
-
-        /* Pagination Styles */
+        /* Enhanced Pagination */
         .pagination-container {
             margin-top: 3rem;
             padding: 2rem;
@@ -648,6 +949,18 @@
             border-radius: 15px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pagination-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-success);
         }
 
         .pagination-info {
@@ -677,6 +990,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            text-decoration: none;
         }
 
         .pagination-btn:hover:not(:disabled) {
@@ -689,6 +1003,7 @@
         .pagination-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
         }
 
         .pagination-numbers {
@@ -709,6 +1024,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            text-decoration: none;
         }
 
         .pagination-number:hover,
@@ -723,7 +1039,7 @@
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
 
-        /* Newsletter */
+        /* Enhanced Newsletter Widget */
         .newsletter-widget {
             background: var(--gradient-primary);
             color: white;
@@ -746,6 +1062,12 @@
             border-radius: 25px;
             margin-bottom: 1rem;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
         }
 
         .newsletter-btn {
@@ -765,96 +1087,45 @@
             transform: translateY(-2px);
         }
 
-        /* Search Widget */
-        .search-form {
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 0.8rem 3rem 0.8rem 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: 25px;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
-
-        /* Archive Widget */
-        .archive-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .archive-list li {
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .archive-list li:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .archive-list a {
-            color: var(--text-dark);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .archive-list a:hover {
-            color: var(--secondary-color);
-        }
-
-        /* Filter Buttons */
-        .filter-buttons {
+        /* Enhanced Tags Cloud */
+        .tags-cloud {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
         }
 
-        .filter-btn {
+        .tag-cloud-item {
             background: var(--background-light);
             color: var(--text-dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-decoration: none;
             border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
+        .tag-cloud-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+            transition: left 0.3s ease;
+        }
+
+        .tag-cloud-item:hover::before {
+            left: 100%;
+        }
+
+        .tag-cloud-item:hover {
             background: var(--secondary-color);
             color: white;
-            border-color: var(--secondary-color);
+            transform: translateY(-2px);
         }
 
         /* Footer */
@@ -893,106 +1164,26 @@
             transform: translateY(-3px);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 2rem;
-                box-shadow: var(--shadow);
-                gap: 1rem;
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .main-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 2rem 1rem;
-            }
-
-            .blog-title {
-                font-size: 2rem;
-            }
-
-            .featured-image {
-                height: 200px;
-                font-size: 3rem;
-            }
-
-            .featured-content {
-                padding: 1.5rem;
-            }
-
-            .featured-title {
-                font-size: 1.5rem;
-            }
-
-            .post-card {
-                grid-template-columns: 1fr;
-                min-height: auto;
-            }
-
-            .post-image {
-                height: 150px;
-                font-size: 2rem;
-            }
-
-            .sidebar {
-                order: -1;
-            }
-
-            .blog-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .filter-buttons {
-                justify-content: center;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @media (max-width: 480px) {
-            .blog-hero {
-                padding: 3rem 1rem;
-            }
-
-            .blog-title {
-                font-size: 1.8rem;
-            }
-
-            .main-content {
-                padding: 1rem;
-            }
-
-            .featured-content {
-                padding: 1rem;
-            }
-
-            .post-content {
-                padding: 1rem;
-            }
-
-            .blog-stats {
-                grid-template-columns: 1fr;
-                padding: 1rem;
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* Animation classes */
         .fade-in {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 0;
+            transform: translateY(30px);
             transition: all 0.6s ease;
         }
 
@@ -1029,9 +1220,212 @@
             background: var(--accent-color);
             transform: translateY(-3px);
         }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 3rem 2rem;
+            }
+
+            .sidebar {
+                order: -1;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                display: grid;
+                gap: 1.5rem;
+            }
+
+            .blog-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+                animation: slideDown 0.3s ease;
+            }
+
+            @keyframes slideDown {
+                from { 
+                    opacity: 0; 
+                    transform: translateY(-20px); 
+                }
+                to { 
+                    opacity: 1; 
+                    transform: translateY(0); 
+                }
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .main-content {
+                padding: 2rem 1rem;
+            }
+
+            .blog-title {
+                font-size: 2rem;
+            }
+
+            .featured-image {
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .featured-content {
+                padding: 1.5rem;
+            }
+
+            .featured-title {
+                font-size: 1.5rem;
+            }
+
+            .post-card {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .post-image {
+                height: 150px;
+                font-size: 2rem;
+            }
+
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+
+            .pagination {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .pagination-numbers {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero {
+                padding: 3rem 1rem;
+            }
+
+            .blog-title {
+                font-size: 1.8rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .featured-content {
+                padding: 1rem;
+            }
+
+            .post-content {
+                padding: 1rem;
+            }
+
+            .blog-stats {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .filter-buttons {
+                padding: 1rem;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --secondary-color: #0066CC;
+                --primary-color: #000000;
+                --text-light: #444444;
+            }
+            
+            .blog-stats,
+            .sidebar-widget,
+            .post-card {
+                border: 2px solid var(--primary-color);
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .pulse,
+            .spinner {
+                animation: none;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .header,
+            .footer,
+            .sidebar,
+            .filter-buttons,
+            .pagination-container,
+            .back-to-top,
+            .newsletter-widget {
+                display: none !important;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+            
+            .post-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .blog-hero {
+                break-after: page;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Header -->
     <header class="header">
         <nav class="nav-container">
@@ -1041,12 +1435,13 @@
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="index.html#research">Research</a></li>
                 <li><a href="index.html#experience">Experience</a></li>
-                <!-- <li><a href="index.html#publications">Publications</a></li> -->
                 <li><a href="blog.html" class="active">Blog</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </button>
         </nav>
     </header>
@@ -1072,40 +1467,54 @@
     </section>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="main-content">
         <div class="blog-content">
-            <!-- Blog Stats -->
-            <div class="blog-stats">
+            <!-- Blog Stats - Simplified and Dynamic -->
+            <div class="blog-stats fade-in">
                 <div class="stat-item">
-                    <span class="stat-number" id="totalPostsCount">13</span>
+                    <span class="stat-number" id="totalPostsCount">11</span>
                     <span class="stat-label">Published Posts</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">5</span>
-                    <span class="stat-label">Categories</span>
+                    <span class="stat-number" id="categoriesCount">5</span>
+                    <span class="stat-label">Active Categories</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">1.2K</span>
-                    <span class="stat-label">Total Reads</span>
+                    <span class="stat-number" id="latestYear">2025</span>
+                    <span class="stat-label">Latest Year</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Countries</span>
+                    <span class="stat-number" id="totalReadTime">0</span>
+                    <span class="stat-label">Total Read Time (min)</span>
                 </div>
             </div>
 
             <!-- Filter Buttons -->
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">All Posts</button>
-                <button class="filter-btn" data-filter="collective-intelligence">Collective Intelligence</button>
-                <button class="filter-btn" data-filter="personal">Personal Reflection</button>
-                <button class="filter-btn" data-filter="research">Research</button>
-                <button class="filter-btn" data-filter="cross-cultural">Cross-Cultural</button>
-                <button class="filter-btn" data-filter="technology">Technology</button>
+            <div class="filter-buttons fade-in">
+                <button class="filter-btn active" data-filter="all">All Posts <span class="count">11</span></button>
+                <button class="filter-btn" data-filter="collective-intelligence">Collective Intelligence <span class="count">4</span></button>
+                <button class="filter-btn" data-filter="personal">Personal Reflection <span class="count">3</span></button>
+                <button class="filter-btn" data-filter="research">Research <span class="count">2</span></button>
+                <button class="filter-btn" data-filter="cross-cultural">Cross-Cultural <span class="count">1</span></button>
+                <button class="filter-btn" data-filter="technology">Technology <span class="count">2</span></button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <p>Loading posts...</p>
+            </div>
+
+            <!-- No Results State -->
+            <div class="no-results" id="noResults">
+                <div class="no-results-icon">🔍</div>
+                <h3>No posts found</h3>
+                <p>We couldn't find any posts matching your search criteria. Try adjusting your filters or search terms.</p>
+                <button class="clear-filters-btn" onclick="clearAllFilters()">Clear All Filters</button>
             </div>
 
             <!-- Featured Post -->
-            <article class="featured-post">
+            <article class="featured-post fade-in">
                 <div class="featured-image">
                     <div class="featured-badge">Featured</div>
                     <img src="images/Journey Through Time and Sky.png" alt="Journey Through Time and Sky" style="width: 40%; height: 120%; object-fit: cover;">
@@ -1123,12 +1532,12 @@
                         There's something profoundly intimate about writing a letter to yourself. The concept of having an honest conversation with yourself across time opens doorways to reflection that other forms of introspection rarely achieve.
                     </p>
                     <div class="featured-tags">
-                        <span class="tag">Personal Growth</span>
-                        <span class="tag">Self-Reflection</span>
-                        <span class="tag">Cross-Cultural</span>
-                        <span class="tag">Journey</span>
-                        <span class="tag">Morocco</span>
-                        <span class="tag">Nigeria</span>
+                        <span class="tag" data-filter="personal">Personal Growth</span>
+                        <span class="tag" data-filter="personal">Self-Reflection</span>
+                        <span class="tag" data-filter="cross-cultural">Cross-Cultural</span>
+                        <span class="tag" data-filter="personal">Journey</span>
+                        <span class="tag" data-filter="cross-cultural">Morocco</span>
+                        <span class="tag" data-filter="cross-cultural">Nigeria</span>
                     </div>
                     <a href="dear-me.html" class="read-more">
                         Read Full Article <i class="fas fa-arrow-right"></i>
@@ -1139,252 +1548,11 @@
             <!-- Recent Posts -->
             <section class="posts-section">
                 <h2 class="section-title">Recent Posts</h2>
-                <div class="posts-grid">
-                    <article class="post-card" data-category="cross-cultural">
-                        <div class="post-image"><img src="images/traveller.png" alt="traveller icon" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> February 15, 2025</span>
-                                <span><i class="fas fa-clock"></i> 8 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="are_you_a_traveller.html">Are you a traveller or a migrant?</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                Exploring the fine line between traveling and migrating, and how our motivations shape our experiences in new cultures and environments.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Identity</span>
-                                <span class="post-tag">Travel</span>
-                                <span class="post-tag">Culture</span>
-                            </div>
-                            <a href="are_you_a_traveller.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="collective-intelligence">
-                        <div class="post-image"><img src="images/symphony.png" alt="genius icon" style="width: 100%; height: 100%; object-fit: cover;"></div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> January 5, 2025</span>
-                                <span><i class="fas fa-clock"></i> 10 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="forget_the_lone_genius.html">Forget the Lone Genius</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                Why collective intelligence trumps individual brilliance in solving complex problems, and how we can harness the power of groups.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Collective Intelligence</span>
-                                <span class="post-tag">Innovation</span>
-                                <span class="post-tag">Research</span>
-                            </div>
-                            <a href="forget_the_lone_genius.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="research">
-                        <div class="post-image">
-                            <img src="images/invisible hand.png" alt="invisible-hand's picture" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> February 1, 2025</span>
-                                <span><i class="fas fa-clock"></i> 6 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="invisible-hand.html">The Invisible Hand</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                Examining the unseen forces that guide group decision-making and how understanding them can improve collective outcomes.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Group Dynamics</span>
-                                <span class="post-tag">Decision Making</span>
-                                <span class="post-tag">Psychology</span>
-                            </div>
-                            <a href="invisible-hand.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="technology">
-                        <div class="post-image">🤖</div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> December 20, 2024</span>
-                                <span><i class="fas fa-clock"></i> 7 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="ai-bias-amplification.html">When AI Amplifies Human Bias</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                How artificial intelligence systems can perpetuate and amplify existing biases in group decision-making processes.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">AI Ethics</span>
-                                <span class="post-tag">Bias</span>
-                                <span class="post-tag">Technology</span>
-                            </div>
-                            <a href="ai-bias-amplification.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="personal">
-                        <div class="post-image">🌱</div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> December 5, 2024</span>
-                                <span><i class="fas fa-clock"></i> 9 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="seeds-of-change.html">Seeds of Change: From Agriculture to Intelligence</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                Reflecting on my journey from studying crop protection to researching collective intelligence, and the surprising connections between the two.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Career Change</span>
-                                <span class="post-tag">Agriculture</span>
-                                <span class="post-tag">Personal Growth</span>
-                            </div>
-                            <a href="seeds-of-change.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="collective-intelligence">
-                        <div class="post-image">🎯</div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> November 18, 2024</span>
-                                <span><i class="fas fa-clock"></i> 11 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="wisdom-of-crowds.html">The Wisdom of Crowds: Myth or Reality?</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                A critical examination of when groups make better decisions than individuals, and when they fall into the trap of groupthink.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Group Intelligence</span>
-                                <span class="post-tag">Decision Making</span>
-                                <span class="post-tag">Research</span>
-                            </div>
-                            <a href="wisdom-of-crowds.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="research">
-                        <div class="post-image">📊</div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> October 15, 2024</span>
-                                <span><i class="fas fa-clock"></i> 13 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="measuring-collective-intelligence.html">Measuring Collective Intelligence: Beyond the Sum of Parts</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                How do we quantify the intelligence of groups? Exploring current methodologies and proposing new frameworks for measurement.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Measurement</span>
-                                <span class="post-tag">Methodology</span>
-                                <span class="post-tag">Academic</span>
-                            </div>
-                            <a href="measuring-collective-intelligence.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="collective-intelligence" data-page="2">
-                        <div class="post-image">🎭</div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> September 10, 2024</span>
-                                <span><i class="fas fa-clock"></i> 8 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="diversity-paradox.html">The Diversity Paradox in Group Decision-Making</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                Why diverse groups often make better decisions, but can also face significant coordination challenges.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Diversity</span>
-                                <span class="post-tag">Group Dynamics</span>
-                                <span class="post-tag">Paradox</span>
-                            </div>
-                            <a href="diversity-paradox.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="technology" data-page="2">
-                        <div class="post-image">🔬</div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> August 22, 2024</span>
-                                <span><i class="fas fa-clock"></i> 10 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="digital-facilitation-tools.html">Digital Tools for Better Group Facilitation</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                A review of emerging digital platforms that enhance collaborative decision-making and reduce meeting fatigue.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Digital Tools</span>
-                                <span class="post-tag">Facilitation</span>
-                                <span class="post-tag">Collaboration</span>
-                            </div>
-                            <a href="digital-facilitation-tools.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
+                <div class="posts-grid" id="postsGrid">
+                    <!-- Posts arranged chronologically (newest first) -->
                     
-
-                    <article class="post-card" data-category="research" data-page="3">
-                        <div class="post-image">📈</div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span><i class="fas fa-calendar-alt"></i> July 18, 2024</span>
-                                <span><i class="fas fa-clock"></i> 12 min read</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="farmer-clusters-nigeria.html">Farmer Clusters in Nigeria: A Case Study in Collective Action</a>
-                            </h3>
-                            <p class="post-excerpt">
-                                Analyzing how smallholder farmers in Nigeria organize collectively and the lessons for understanding group intelligence in resource-constrained environments.
-                            </p>
-                            <div class="post-tags">
-                                <span class="post-tag">Nigeria</span>
-                                <span class="post-tag">Agriculture</span>
-                                <span class="post-tag">Case Study</span>
-                            </div>
-                            <a href="farmer-clusters-nigeria.html" class="read-more">
-                                Read More <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="post-card" data-category="personal" data-page="3">
+                    <!-- February 15, 2025 - Multiple posts same date -->
+                    <article class="post-card" data-category="personal" data-date="2025-02-15">
                         <div class="post-image">
                             <img src="images/mirror.png" alt="mirror icon" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
@@ -1400,11 +1568,262 @@
                                 Preparing for the next chapter of my research journey at TU Dublin and what I hope to discover about AI-facilitated group decision-making.
                             </p>
                             <div class="post-tags">
-                                <span class="post-tag">Dublin</span>
-                                <span class="post-tag">PhD</span>
-                                <span class="post-tag">Future Plans</span>
+                                <span class="post-tag" data-filter="personal">Dublin</span>
+                                <span class="post-tag" data-filter="personal">PhD</span>
+                                <span class="post-tag" data-filter="personal">Future Plans</span>
                             </div>
                             <a href="the-mirror-effect.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="post-card" data-category="cross-cultural" data-date="2025-02-15">
+                        <div class="post-image"><img src="images/traveller.png" alt="traveller icon" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> February 15, 2025</span>
+                                <span><i class="fas fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="are_you_a_traveller.html">Are you a traveller or a migrant?</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Exploring the fine line between traveling and migrating, and how our motivations shape our experiences in new cultures and environments.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="cross-cultural">Identity</span>
+                                <span class="post-tag" data-filter="cross-cultural">Travel</span>
+                                <span class="post-tag" data-filter="cross-cultural">Culture</span>
+                            </div>
+                            <a href="are_you_a_traveller.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- February 1, 2025 -->
+                    <article class="post-card" data-category="research" data-date="2025-02-01">
+                        <div class="post-image">
+                            <img src="images/invisible hand.png" alt="invisible-hand's picture" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> February 1, 2025</span>
+                                <span><i class="fas fa-clock"></i> 6 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="invisible-hand.html">The Invisible Hand</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Examining the unseen forces that guide group decision-making and how understanding them can improve collective outcomes.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="collective-intelligence">Group Dynamics</span>
+                                <span class="post-tag" data-filter="research">Decision Making</span>
+                                <span class="post-tag" data-filter="research">Psychology</span>
+                            </div>
+                            <a href="invisible-hand.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- January 5, 2025 -->
+                    <article class="post-card" data-category="collective-intelligence" data-date="2025-01-05">
+                        <div class="post-image"><img src="images/symphony.png" alt="genius icon" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> January 5, 2025</span>
+                                <span><i class="fas fa-clock"></i> 10 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="forget_the_lone_genius.html">Forget the Lone Genius</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Why collective intelligence trumps individual brilliance in solving complex problems, and how we can harness the power of groups.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="collective-intelligence">Collective Intelligence</span>
+                                <span class="post-tag" data-filter="collective-intelligence">Innovation</span>
+                                <span class="post-tag" data-filter="research">Research</span>
+                            </div>
+                            <a href="forget_the_lone_genius.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- December 20, 2024 -->
+                    <article class="post-card" data-category="technology" data-date="2024-12-20">
+                        <div class="post-image">🤖</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> December 20, 2024</span>
+                                <span><i class="fas fa-clock"></i> 7 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="ai-bias-amplification.html">When AI Amplifies Human Bias</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                How artificial intelligence systems can perpetuate and amplify existing biases in group decision-making processes.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="technology">AI Ethics</span>
+                                <span class="post-tag" data-filter="technology">Bias</span>
+                                <span class="post-tag" data-filter="technology">Technology</span>
+                            </div>
+                            <a href="ai-bias-amplification.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- December 5, 2024 -->
+                    <article class="post-card" data-category="personal" data-date="2024-12-05">
+                        <div class="post-image">🌱</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> December 5, 2024</span>
+                                <span><i class="fas fa-clock"></i> 9 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="seeds-of-change.html">Seeds of Change: From Agriculture to Intelligence</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Reflecting on my journey from studying crop protection to researching collective intelligence, and the surprising connections between the two.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="personal">Career Change</span>
+                                <span class="post-tag" data-filter="personal">Agriculture</span>
+                                <span class="post-tag" data-filter="personal">Personal Growth</span>
+                            </div>
+                            <a href="seeds-of-change.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- November 18, 2024 -->
+                    <article class="post-card" data-category="collective-intelligence" data-date="2024-11-18">
+                        <div class="post-image">🎯</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> November 18, 2024</span>
+                                <span><i class="fas fa-clock"></i> 11 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="wisdom-of-crowds.html">The Wisdom of Crowds: Myth or Reality?</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                A critical examination of when groups make better decisions than individuals, and when they fall into the trap of groupthink.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="collective-intelligence">Group Intelligence</span>
+                                <span class="post-tag" data-filter="collective-intelligence">Decision Making</span>
+                                <span class="post-tag" data-filter="research">Research</span>
+                            </div>
+                            <a href="wisdom-of-crowds.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- October 15, 2024 -->
+                    <article class="post-card" data-category="research" data-date="2024-10-15">
+                        <div class="post-image">📊</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> October 15, 2024</span>
+                                <span><i class="fas fa-clock"></i> 13 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="measuring-collective-intelligence.html">Measuring Collective Intelligence: Beyond the Sum of Parts</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                How do we quantify the intelligence of groups? Exploring current methodologies and proposing new frameworks for measurement.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="research">Measurement</span>
+                                <span class="post-tag" data-filter="research">Methodology</span>
+                                <span class="post-tag" data-filter="research">Academic</span>
+                            </div>
+                            <a href="measuring-collective-intelligence.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- September 10, 2024 -->
+                    <article class="post-card" data-category="collective-intelligence" data-date="2024-09-10">
+                        <div class="post-image">🎭</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> September 10, 2024</span>
+                                <span><i class="fas fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="diversity-paradox.html">The Diversity Paradox in Group Decision-Making</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Why diverse groups often make better decisions, but can also face significant coordination challenges.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="collective-intelligence">Diversity</span>
+                                <span class="post-tag" data-filter="collective-intelligence">Group Dynamics</span>
+                                <span class="post-tag" data-filter="collective-intelligence">Paradox</span>
+                            </div>
+                            <a href="diversity-paradox.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- August 22, 2024 -->
+                    <article class="post-card" data-category="technology" data-date="2024-08-22">
+                        <div class="post-image">🔬</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> August 22, 2024</span>
+                                <span><i class="fas fa-clock"></i> 10 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="digital-facilitation-tools.html">Digital Tools for Better Group Facilitation</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                A review of emerging digital platforms that enhance collaborative decision-making and reduce meeting fatigue.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="technology">Digital Tools</span>
+                                <span class="post-tag" data-filter="technology">Facilitation</span>
+                                <span class="post-tag" data-filter="collective-intelligence">Collaboration</span>
+                            </div>
+                            <a href="digital-facilitation-tools.html" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- July 18, 2024 -->
+                    <article class="post-card" data-category="research" data-date="2024-07-18">
+                        <div class="post-image">📈</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar-alt"></i> July 18, 2024</span>
+                                <span><i class="fas fa-clock"></i> 12 min read</span>
+                            </div>
+                            <h3 class="post-title">
+                                <a href="farmer-clusters-nigeria.html">Farmer Clusters in Nigeria: A Case Study in Collective Action</a>
+                            </h3>
+                            <p class="post-excerpt">
+                                Analyzing how smallholder farmers in Nigeria organize collectively and the lessons for understanding group intelligence in resource-constrained environments.
+                            </p>
+                            <div class="post-tags">
+                                <span class="post-tag" data-filter="research">Nigeria</span>
+                                <span class="post-tag" data-filter="research">Agriculture</span>
+                                <span class="post-tag" data-filter="research">Case Study</span>
+                            </div>
+                            <a href="farmer-clusters-nigeria.html" class="read-more">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
@@ -1412,23 +1831,21 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="pagination-container fade-in">
+                <div class="pagination-container fade-in" id="paginationContainer">
                     <div class="pagination-info">
-                        <span>Showing <strong id="postsRangeStart">1</strong>-<strong id="postsRangeEnd">8</strong> of <strong id="totalPosts">15</strong> posts</span>
+                        <span>Showing <strong id="postsRangeStart">1</strong>-<strong id="postsRangeEnd">8</strong> of <strong id="totalPosts">11</strong> posts</span>
                     </div>
                     
                     <nav class="pagination" aria-label="Blog pagination">
-                        <button class="pagination-btn prev-btn" onclick="goToPage('prev')" disabled>
+                        <button class="pagination-btn prev-btn" id="prevBtn" onclick="goToPage('prev')" disabled>
                             <i class="fas fa-chevron-left"></i> Previous
                         </button>
                         
-                        <div class="pagination-numbers">
-                            <button class="pagination-number active" data-page="1" onclick="goToPage(1)">1</button>
-                            <button class="pagination-number" data-page="2" onclick="goToPage(2)">2</button>
-                            <button class="pagination-number" data-page="3" onclick="goToPage(3)">3</button>
+                        <div class="pagination-numbers" id="paginationNumbers">
+                            <!-- Dynamically generated -->
                         </div>
                         
-                        <button class="pagination-btn next-btn" onclick="goToPage('next')">
+                        <button class="pagination-btn next-btn" id="nextBtn" onclick="goToPage('next')">
                             Next <i class="fas fa-chevron-right"></i>
                         </button>
                     </nav>
@@ -1436,18 +1853,18 @@
             </section>
         </div>
 
-        <!-- Sidebar -->
+        <!-- Enhanced Sidebar -->
         <aside class="sidebar">
-            <!-- Blog Navigation Stats -->
+            <!-- Blog Navigation Stats - Simplified -->
             <div class="sidebar-widget fade-in">
-                <h3>Blog Navigation</h3>
+                <h3>Current View</h3>
                 <div class="blog-nav-stats">
                     <div class="nav-stat">
                         <span class="nav-number" id="currentPage">1</span>
                         <span class="nav-label">Current Page</span>
                     </div>
                     <div class="nav-stat">
-                        <span class="nav-number" id="totalPages">3</span>
+                        <span class="nav-number" id="totalPages">2</span>
                         <span class="nav-label">Total Pages</span>
                     </div>
                     <div class="nav-stat">
@@ -1457,26 +1874,26 @@
                 </div>
             </div>
 
-            <!-- Search Widget -->
+            <!-- Enhanced Search Widget -->
             <div class="sidebar-widget fade-in">
                 <h3>Search Posts</h3>
                 <form class="search-form" onsubmit="searchPosts(event)">
-                    <input type="text" class="search-input" placeholder="Search articles..." id="searchInput">
-                    <button type="submit" class="search-btn">
+                    <input type="text" class="search-input" placeholder="Search articles..." id="searchInput" autocomplete="off">
+                    <button type="submit" class="search-btn" aria-label="Search">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
             </div>
 
-            <!-- Categories Widget -->
+            <!-- Enhanced Categories Widget -->
             <div class="sidebar-widget fade-in">
                 <h3>Categories</h3>
                 <ul class="categories-list">
-                    <li><a href="#" data-filter="collective-intelligence">Collective Intelligence <span class="post-count">5</span></a></li>
+                    <li><a href="#" data-filter="collective-intelligence">Collective Intelligence <span class="post-count">4</span></a></li>
                     <li><a href="#" data-filter="personal">Personal Reflection <span class="post-count">3</span></a></li>
-                    <li><a href="#" data-filter="cross-cultural">Cross-Cultural <span class="post-count">3</span></a></li>
                     <li><a href="#" data-filter="research">Research <span class="post-count">2</span></a></li>
                     <li><a href="#" data-filter="technology">Technology <span class="post-count">2</span></a></li>
+                    <li><a href="#" data-filter="cross-cultural">Cross-Cultural <span class="post-count">1</span></a></li>
                 </ul>
             </div>
 
@@ -1486,28 +1903,28 @@
                 <ul class="recent-posts-list">
                     <li><a href="dear-me.html">Dear Me; عزيزي أنا</a></li>
                     <li><a href="are_you_a_traveller.html">Are you a traveller or a migrant?</a></li>
-                    <li><a href="forget_the_lone_genius.html">Forget the Lone Genius</a></li>
                     <li><a href="invisible-hand.html">The Invisible Hand</a></li>
+                    <li><a href="forget_the_lone_genius.html">Forget the Lone Genius</a></li>
                     <li><a href="ai-bias-amplification.html">When AI Amplifies Human Bias</a></li>
                 </ul>
             </div>
 
-            <!-- Tags Cloud Widget -->
+            <!-- Enhanced Tags Cloud Widget -->
             <div class="sidebar-widget fade-in">
                 <h3>Popular Tags</h3>
                 <div class="tags-cloud">
-                    <a href="#" class="tag-cloud-item">Collective Intelligence</a>
-                    <a href="#" class="tag-cloud-item">AI Ethics</a>
-                    <a href="#" class="tag-cloud-item">Cross-Cultural</a>
-                    <a href="#" class="tag-cloud-item">Group Dynamics</a>
-                    <a href="#" class="tag-cloud-item">Decision Making</a>
-                    <a href="#" class="tag-cloud-item">Research</a>
-                    <a href="#" class="tag-cloud-item">Personal Growth</a>
-                    <a href="#" class="tag-cloud-item">Innovation</a>
-                    <a href="#" class="tag-cloud-item">Morocco</a>
-                    <a href="#" class="tag-cloud-item">Nigeria</a>
-                    <a href="#" class="tag-cloud-item">PhD Journey</a>
-                    <a href="#" class="tag-cloud-item">Technology</a>
+                    <a href="#" class="tag-cloud-item" data-filter="collective-intelligence">Collective Intelligence</a>
+                    <a href="#" class="tag-cloud-item" data-filter="technology">AI Ethics</a>
+                    <a href="#" class="tag-cloud-item" data-filter="cross-cultural">Cross-Cultural</a>
+                    <a href="#" class="tag-cloud-item" data-filter="collective-intelligence">Group Dynamics</a>
+                    <a href="#" class="tag-cloud-item" data-filter="research">Decision Making</a>
+                    <a href="#" class="tag-cloud-item" data-filter="research">Research</a>
+                    <a href="#" class="tag-cloud-item" data-filter="personal">Personal Growth</a>
+                    <a href="#" class="tag-cloud-item" data-filter="collective-intelligence">Innovation</a>
+                    <a href="#" class="tag-cloud-item" data-filter="cross-cultural">Morocco</a>
+                    <a href="#" class="tag-cloud-item" data-filter="cross-cultural">Nigeria</a>
+                    <a href="#" class="tag-cloud-item" data-filter="personal">PhD Journey</a>
+                    <a href="#" class="tag-cloud-item" data-filter="technology">Technology</a>
                 </div>
             </div>
 
@@ -1515,24 +1932,26 @@
             <div class="sidebar-widget fade-in">
                 <h3>Archives</h3>
                 <ul class="archive-list">
-                    <li><a href="#">March 2025 <span class="post-count">2</span></a></li>
-                    <li><a href="#">February 2025 <span class="post-count">1</span></a></li>
-                    <li><a href="#">January 2025 <span class="post-count">2</span></a></li>
-                    <li><a href="#">December 2024 <span class="post-count">3</span></a></li>
-                    <li><a href="#">November 2024 <span class="post-count">2</span></a></li>
-                    <li><a href="#">October 2024 <span class="post-count">3</span></a></li>
-                    <li><a href="#">September 2024 <span class="post-count">2</span></a></li>
+                    <li><a href="#" data-archive="2025-03">March 2025 <span class="post-count">1</span></a></li>
+                    <li><a href="#" data-archive="2025-02">February 2025 <span class="post-count">2</span></a></li>
+                    <li><a href="#" data-archive="2025-01">January 2025 <span class="post-count">1</span></a></li>
+                    <li><a href="#" data-archive="2024-12">December 2024 <span class="post-count">2</span></a></li>
+                    <li><a href="#" data-archive="2024-11">November 2024 <span class="post-count">1</span></a></li>
+                    <li><a href="#" data-archive="2024-10">October 2024 <span class="post-count">1</span></a></li>
+                    <li><a href="#" data-archive="2024-09">September 2024 <span class="post-count">1</span></a></li>
+                    <li><a href="#" data-archive="2024-08">August 2024 <span class="post-count">1</span></a></li>
+                    <li><a href="#" data-archive="2024-07">July 2024 <span class="post-count">1</span></a></li>
                 </ul>
             </div>
 
-            <!-- Newsletter Widget -->
+            <!-- Enhanced Newsletter Widget -->
             <div class="sidebar-widget newsletter-widget fade-in">
                 <h3>Stay Updated</h3>
                 <p style="margin-bottom: 1rem; font-size: 0.9rem;">
                     Get the latest insights on collective intelligence and my research journey delivered to your inbox.
                 </p>
                 <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required autocomplete="email">
                     <button type="submit" class="newsletter-btn">
                         <i class="fas fa-paper-plane"></i> Subscribe
                     </button>
@@ -1547,7 +1966,7 @@
             <a href="https://linkedin.com/in/azeezhamzat" class="social-link" target="_blank" aria-label="LinkedIn">
                 <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://x.com/Azeez_A_Hamzat" class="social-link" target="_blank" aria-label="Twitter">
+            <a href="https://x.com/Azeez_A_Hamzat" class="social-link" target="_blank" aria-label="X (Twitter)">
                 <i class="fab fa-x-twitter"></i>
             </a>
             <a href="https://facebook.com/azeez.seeker" class="social-link" target="_blank" aria-label="Facebook">
@@ -1556,10 +1975,10 @@
             <a href="https://instagram.com/ibnhamzah1" class="social-link" target="_blank" aria-label="Instagram">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://orcid.org/0000-0000-0000-0000" class="social-link" target="_blank" aria-label="ORCID">
+            <a href="https://orcid.org/0009-0007-8804-0283" class="social-link" target="_blank" aria-label="ORCID">
                 <i class="fab fa-orcid"></i>
             </a>
-            <a href="https://scholar.google.com" class="social-link" target="_blank" aria-label="Google Scholar">
+            <a href="https://scholar.google.com/citations?user=6CErkzgAAAAJ" class="social-link" target="_blank" aria-label="Google Scholar">
                 <i class="fas fa-graduation-cap"></i>
             </a>
         </div>
@@ -1576,185 +1995,438 @@
 
     <!-- Scripts -->
     <script>
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const navMenu = document.querySelector('.nav-menu');
-            navMenu.classList.toggle('active');
-        }
-
-        // Pagination system
-        let currentPage = 1;
-        const postsPerPage = 8;
-        let filteredPosts = [];
-        let currentFilter = 'all';
-
-        function getAllPosts() {
-            return Array.from(document.querySelectorAll('.post-card'));
-        }
-
-        function getFilteredPosts(filter = 'all') {
-            const allPosts = getAllPosts();
-            if (filter === 'all') {
-                return allPosts;
-            }
-            return allPosts.filter(post => post.getAttribute('data-category') === filter);
-        }
-
-        function updatePaginationInfo() {
-            const totalPosts = filteredPosts.length;
-            const totalPages = Math.ceil(totalPosts / postsPerPage);
-            const start = (currentPage - 1) * postsPerPage + 1;
-            const end = Math.min(currentPage * postsPerPage, totalPosts);
-            
-            document.getElementById('postsRangeStart').textContent = totalPosts > 0 ? start : 0;
-            document.getElementById('postsRangeEnd').textContent = totalPosts > 0 ? end : 0;
-            document.getElementById('totalPosts').textContent = totalPosts;
-            document.getElementById('currentPage').textContent = currentPage;
-            document.getElementById('totalPages').textContent = totalPages;
-            document.getElementById('postsShown').textContent = totalPosts > 0 ? (end - start + 1) : 0;
-        }
-
-        function updatePaginationButtons() {
-            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-            
-            // Update prev/next buttons
-            const prevBtn = document.querySelector('.prev-btn');
-            const nextBtn = document.querySelector('.next-btn');
-            if (prevBtn) prevBtn.disabled = currentPage === 1;
-            if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
-
-            // Update pagination numbers
-            const paginationNumbers = document.querySelector('.pagination-numbers');
-            if (paginationNumbers) {
-                paginationNumbers.innerHTML = '';
+        // Blog Management System
+        class BlogManager {
+            constructor() {
+                this.currentPage = 1;
+                this.postsPerPage = 8;
+                this.currentFilter = 'all';
+                this.currentSearchTerm = '';
+                this.allPosts = [];
+                this.filteredPosts = [];
+                this.isLoading = false;
                 
-                for (let i = 1; i <= totalPages; i++) {
-                    const btn = document.createElement('button');
-                    btn.className = `pagination-number ${i === currentPage ? 'active' : ''}`;
-                    btn.dataset.page = i;
-                    btn.textContent = i;
-                    btn.onclick = () => goToPage(i);
-                    paginationNumbers.appendChild(btn);
+                this.init();
+            }
+
+            init() {
+                this.collectAllPosts();
+                this.setupEventListeners();
+                this.updateDisplay();
+                this.updateFilterCounts(); // Update filter counts with actual data
+                this.initializeAnimations();
+                
+                // Initialize with slight delay for better UX
+                setTimeout(() => {
+                    this.showPage(1);
+                }, 100);
+            }
+
+            collectAllPosts() {
+                this.allPosts = Array.from(document.querySelectorAll('.post-card')).map(card => {
+                    // Extract reading time from meta
+                    const readingTimeText = card.querySelector('.post-meta span:nth-child(2)').textContent;
+                    const readingTimeMatch = readingTimeText.match(/(\d+)\s*min/);
+                    const readingTime = readingTimeMatch ? parseInt(readingTimeMatch[1]) : 0;
+                    
+                    return {
+                        element: card,
+                        category: card.getAttribute('data-category'),
+                        date: card.getAttribute('data-date'),
+                        dateObj: new Date(card.getAttribute('data-date')), // For proper sorting
+                        title: card.querySelector('.post-title a').textContent.toLowerCase(),
+                        excerpt: card.querySelector('.post-excerpt').textContent.toLowerCase(),
+                        tags: Array.from(card.querySelectorAll('.post-tag')).map(tag => tag.textContent.toLowerCase()),
+                        readingTime: readingTime
+                    };
+                });
+                
+                // Sort posts by date (newest first), then by title if same date
+                this.allPosts.sort((a, b) => {
+                    // First sort by date (newest first)
+                    const dateComparison = b.dateObj - a.dateObj;
+                    if (dateComparison !== 0) {
+                        return dateComparison;
+                    }
+                    // If dates are equal, sort by title alphabetically
+                    return a.title.localeCompare(b.title);
+                });
+                
+                this.filteredPosts = [...this.allPosts];
+                
+                // Calculate and update dynamic stats
+                this.updateBlogStats();
+                
+                // Debug: Log sorted order
+                console.log('Posts sorted chronologically:', this.allPosts.map(p => ({
+                    title: p.title,
+                    date: p.date,
+                    category: p.category,
+                    readingTime: p.readingTime
+                })));
+            }
+
+            updateBlogStats() {
+                // Count unique categories
+                const uniqueCategories = [...new Set(this.allPosts.map(post => post.category))];
+                const categoriesCount = uniqueCategories.length;
+                
+                // Find latest year
+                const latestDate = this.allPosts.length > 0 ? this.allPosts[0].dateObj : new Date();
+                const latestYear = latestDate.getFullYear();
+                
+                // Calculate total reading time
+                const totalReadTime = this.allPosts.reduce((total, post) => total + post.readingTime, 0);
+                
+                // Update DOM elements
+                document.getElementById('totalPostsCount').textContent = this.allPosts.length;
+                document.getElementById('categoriesCount').textContent = categoriesCount;
+                document.getElementById('latestYear').textContent = latestYear;
+                document.getElementById('totalReadTime').textContent = totalReadTime;
+                
+                console.log('Blog stats updated:', {
+                    totalPosts: this.allPosts.length,
+                    categories: categoriesCount,
+                    latestYear: latestYear,
+                    totalReadTime: totalReadTime
+                });
+            }
+
+            setupEventListeners() {
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.setFilter(e.target.getAttribute('data-filter'));
+                    });
+                });
+
+                // Category links
+                document.querySelectorAll('.categories-list a[data-filter]').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.setFilter(e.target.getAttribute('data-filter'));
+                        this.scrollToPostsSection();
+                    });
+                });
+
+                // Tag cloud items
+                document.querySelectorAll('.tag-cloud-item[data-filter]').forEach(tag => {
+                    tag.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.setFilter(e.target.getAttribute('data-filter'));
+                        this.scrollToPostsSection();
+                    });
+                });
+
+                // Post tags
+                document.querySelectorAll('.tag[data-filter], .post-tag[data-filter]').forEach(tag => {
+                    tag.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.setFilter(e.target.getAttribute('data-filter'));
+                        this.scrollToPostsSection();
+                    });
+                });
+
+                // Archive links
+                document.querySelectorAll('.archive-list a[data-archive]').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.filterByArchive(e.target.getAttribute('data-archive'));
+                        this.scrollToPostsSection();
+                    });
+                });
+            }
+
+            setFilter(filter, resetPage = true) {
+                this.currentFilter = filter;
+                if (resetPage) this.currentPage = 1;
+                
+                this.applyFilters();
+                this.updateFilterButtons();
+                this.updateDisplay();
+                this.showPage(this.currentPage);
+            }
+
+            filterByArchive(archive) {
+                const [year, month] = archive.split('-');
+                this.filteredPosts = this.allPosts.filter(post => {
+                    const postDate = new Date(post.date);
+                    return postDate.getFullYear() == year && 
+                           (postDate.getMonth() + 1).toString().padStart(2, '0') == month;
+                });
+                
+                this.currentFilter = 'archive';
+                this.currentPage = 1;
+                this.updateDisplay();
+                this.showPage(1);
+            }
+
+            applyFilters() {
+                let posts = [...this.allPosts];
+
+                // Apply category filter
+                if (this.currentFilter !== 'all' && this.currentFilter !== 'archive') {
+                    posts = posts.filter(post => post.category === this.currentFilter);
+                }
+
+                // Apply search filter
+                if (this.currentSearchTerm) {
+                    posts = posts.filter(post => {
+                        return post.title.includes(this.currentSearchTerm) ||
+                               post.excerpt.includes(this.currentSearchTerm) ||
+                               post.tags.some(tag => tag.includes(this.currentSearchTerm));
+                    });
+                }
+
+                this.filteredPosts = posts;
+            }
+
+            updateFilterButtons() {
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-filter') === this.currentFilter) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+
+            updateFilterCounts() {
+                // Update filter button counts
+                const categoryCount = {};
+                categoryCount['all'] = this.allPosts.length;
+                
+                this.allPosts.forEach(post => {
+                    categoryCount[post.category] = (categoryCount[post.category] || 0) + 1;
+                });
+                
+                // Update filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    const filter = btn.getAttribute('data-filter');
+                    const count = categoryCount[filter] || 0;
+                    const countSpan = btn.querySelector('.count');
+                    if (countSpan) {
+                        countSpan.textContent = count;
+                    }
+                });
+                
+                // Update sidebar categories
+                document.querySelectorAll('.categories-list a[data-filter]').forEach(link => {
+                    const filter = link.getAttribute('data-filter');
+                    const count = categoryCount[filter] || 0;
+                    const countSpan = link.querySelector('.post-count');
+                    if (countSpan) {
+                        countSpan.textContent = count;
+                    }
+                });
+            }
+
+            search(term) {
+                this.currentSearchTerm = term.toLowerCase().trim();
+                this.currentPage = 1;
+                this.applyFilters();
+                this.updateDisplay();
+                this.showPage(1);
+            }
+
+            clearAllFilters() {
+                this.currentFilter = 'all';
+                this.currentSearchTerm = '';
+                this.currentPage = 1;
+                document.getElementById('searchInput').value = '';
+                this.applyFilters();
+                this.updateFilterButtons();
+                this.updateDisplay();
+                this.showPage(1);
+            }
+
+            showPage(page) {
+                const totalPages = Math.ceil(this.filteredPosts.length / this.postsPerPage);
+                
+                if (page < 1 || page > totalPages) return;
+                
+                this.currentPage = page;
+                this.showLoading();
+                
+                // Simulate loading for better UX
+                setTimeout(() => {
+                    this.renderPosts();
+                    this.updatePagination();
+                    this.hideLoading();
+                    this.animatePostsIn();
+                }, 300);
+            }
+
+            renderPosts() {
+                const start = (this.currentPage - 1) * this.postsPerPage;
+                const end = start + this.postsPerPage;
+                const postsToShow = this.filteredPosts.slice(start, end);
+                
+                // Hide all posts
+                this.allPosts.forEach(post => {
+                    post.element.style.display = 'none';
+                    post.element.classList.remove('visible');
+                });
+                
+                // Show filtered posts
+                postsToShow.forEach(post => {
+                    post.element.style.display = 'grid';
+                });
+                
+                // Show no results if needed
+                const noResults = document.getElementById('noResults');
+                if (this.filteredPosts.length === 0) {
+                    noResults.classList.add('visible');
+                } else {
+                    noResults.classList.remove('visible');
                 }
             }
 
-            // Show/hide pagination container
-            const paginationContainer = document.querySelector('.pagination-container');
-            if (paginationContainer) {
-                paginationContainer.style.display = totalPages > 1 ? 'block' : 'none';
-            }
-        }
-
-        function showPage(page) {
-            const startIndex = (page - 1) * postsPerPage;
-            const endIndex = startIndex + postsPerPage;
-            
-            // Hide all posts first
-            const allPosts = getAllPosts();
-            allPosts.forEach(post => {
-                post.style.display = 'none';
-            });
-
-            // Show posts for current page
-            filteredPosts.slice(startIndex, endIndex).forEach(post => {
-                post.style.display = 'grid';
-            });
-
-            updatePaginationButtons();
-            updatePaginationInfo();
-        }
-
-        function goToPage(page) {
-            if (page === 'prev') {
-                page = Math.max(1, currentPage - 1);
-            } else if (page === 'next') {
-                const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-                page = Math.min(totalPages, currentPage + 1);
-            }
-
-            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-            if (page !== currentPage && page >= 1 && page <= totalPages) {
-                currentPage = page;
-                showPage(currentPage);
+            animatePostsIn() {
+                const start = (this.currentPage - 1) * this.postsPerPage;
+                const end = start + this.postsPerPage;
+                const postsToShow = this.filteredPosts.slice(start, end);
                 
-                // Smooth scroll to posts section
-                document.querySelector('.posts-section').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                postsToShow.forEach((post, index) => {
+                    setTimeout(() => {
+                        post.element.classList.add('visible');
+                    }, index * 100);
                 });
             }
-        }
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const postCards = document.querySelectorAll('.post-card');
-            const categoryLinks = document.querySelectorAll('.categories-list a[data-filter]');
 
-            function filterPosts(category) {
-                postCards.forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    if (category === 'all' || cardCategory === category) {
-                        card.style.display = 'grid';
-                        card.classList.add('fade-in');
-                        setTimeout(() => card.classList.add('visible'), 100);
-                    } else {
-                        card.style.display = 'none';
-                        card.classList.remove('visible');
-                    }
-                });
-
-                // Update active filter button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                document.querySelector(`[data-filter="${category}"]`).classList.add('active');
+            updateDisplay() {
+                const totalPosts = this.filteredPosts.length;
+                const totalPages = Math.ceil(totalPosts / this.postsPerPage);
+                const start = totalPosts > 0 ? (this.currentPage - 1) * this.postsPerPage + 1 : 0;
+                const end = Math.min(this.currentPage * this.postsPerPage, totalPosts);
+                
+                // Update pagination info
+                document.getElementById('postsRangeStart').textContent = start;
+                document.getElementById('postsRangeEnd').textContent = end;
+                document.getElementById('totalPosts').textContent = totalPosts;
+                document.getElementById('currentPage').textContent = this.currentPage;
+                document.getElementById('totalPages').textContent = totalPages;
+                document.getElementById('postsShown').textContent = totalPosts > 0 ? (end - start + 1) : 0;
+                
+                // Update dynamic blog stats only if showing all posts (not filtered)
+                if (this.currentFilter === 'all' && !this.currentSearchTerm) {
+                    this.updateBlogStats();
+                }
             }
 
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const category = button.getAttribute('data-filter');
-                    filterPosts(category);
-                });
-            });
-
-            categoryLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const category = link.getAttribute('data-filter');
-                    filterPosts(category);
+            updatePagination() {
+                const totalPages = Math.ceil(this.filteredPosts.length / this.postsPerPage);
+                
+                // Update prev/next buttons
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                
+                if (prevBtn) prevBtn.disabled = this.currentPage === 1;
+                if (nextBtn) nextBtn.disabled = this.currentPage >= totalPages;
+                
+                // Update pagination numbers
+                const paginationNumbers = document.getElementById('paginationNumbers');
+                if (paginationNumbers) {
+                    paginationNumbers.innerHTML = '';
                     
-                    // Scroll to posts section
-                    document.querySelector('.posts-section').scrollIntoView({
-                        behavior: 'smooth'
+                    for (let i = 1; i <= totalPages; i++) {
+                        const btn = document.createElement('button');
+                        btn.className = `pagination-number ${i === this.currentPage ? 'active' : ''}`;
+                        btn.textContent = i;
+                        btn.setAttribute('aria-label', `Go to page ${i}`);
+                        btn.onclick = () => this.showPage(i);
+                        paginationNumbers.appendChild(btn);
+                    }
+                }
+                
+                // Show/hide pagination
+                const paginationContainer = document.getElementById('paginationContainer');
+                if (paginationContainer) {
+                    paginationContainer.style.display = totalPages > 1 ? 'block' : 'none';
+                }
+            }
+
+            goToPage(direction) {
+                const totalPages = Math.ceil(this.filteredPosts.length / this.postsPerPage);
+                
+                if (direction === 'prev' && this.currentPage > 1) {
+                    this.showPage(this.currentPage - 1);
+                } else if (direction === 'next' && this.currentPage < totalPages) {
+                    this.showPage(this.currentPage + 1);
+                } else if (typeof direction === 'number') {
+                    this.showPage(direction);
+                }
+                
+                this.scrollToPostsSection();
+            }
+
+            showLoading() {
+                this.isLoading = true;
+                const spinner = document.getElementById('loadingSpinner');
+                if (spinner) spinner.classList.add('visible');
+            }
+
+            hideLoading() {
+                this.isLoading = false;
+                const spinner = document.getElementById('loadingSpinner');
+                if (spinner) spinner.classList.remove('visible');
+            }
+
+            scrollToPostsSection() {
+                const postsSection = document.querySelector('.posts-section');
+                if (postsSection) {
+                    postsSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
+                }
+            }
+
+            initializeAnimations() {
+                // Intersection Observer for fade-in animations
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    observer.observe(el);
                 });
-            });
+            }
         }
 
-        // Search functionality
+        // Initialize Blog Manager
+        let blogManager;
+
+        // Global functions for HTML event handlers
+        function goToPage(direction) {
+            if (blogManager) {
+                blogManager.goToPage(direction);
+            }
+        }
+
+        function clearAllFilters() {
+            if (blogManager) {
+                blogManager.clearAllFilters();
+            }
+        }
+
         function searchPosts(event) {
             event.preventDefault();
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-            
-            if (!searchTerm) {
-                // Reset to current filter if search is empty
-                filteredPosts = getFilteredPosts(currentFilter);
-            } else {
-                // Filter posts by search term within current filter
-                const baseFilteredPosts = getFilteredPosts(currentFilter);
-                filteredPosts = baseFilteredPosts.filter(card => {
-                    const title = card.querySelector('.post-title a').textContent.toLowerCase();
-                    const excerpt = card.querySelector('.post-excerpt').textContent.toLowerCase();
-                    const tags = Array.from(card.querySelectorAll('.post-tag')).map(tag => tag.textContent.toLowerCase());
-                    
-                    return title.includes(searchTerm) || 
-                           excerpt.includes(searchTerm) || 
-                           tags.some(tag => tag.includes(searchTerm));
-                });
+            const searchInput = document.getElementById('searchInput');
+            if (blogManager && searchInput) {
+                blogManager.search(searchInput.value);
             }
-            
-            // Reset to page 1 and show results
-            currentPage = 1;
-            showPage(currentPage);
         }
 
-        // Newsletter subscription
         function subscribeNewsletter(event) {
             event.preventDefault();
             const email = event.target.querySelector('.newsletter-input').value;
@@ -1764,41 +2436,50 @@
             event.target.reset();
         }
 
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (navMenu && menuBtn) {
+                const isExpanded = navMenu.classList.contains('active');
+                
+                navMenu.classList.toggle('active');
+                menuBtn.setAttribute('aria-expanded', !isExpanded);
+                
+                // Focus management
+                if (!isExpanded) {
+                    const firstMenuItem = navMenu.querySelector('a');
+                    if (firstMenuItem) {
+                        setTimeout(() => firstMenuItem.focus(), 100);
+                    }
+                }
+            }
+        }
+
         // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Close mobile menu if open
-                    document.querySelector('.nav-menu').classList.remove('active');
-                }
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Close mobile menu if open
+                        const navMenu = document.querySelector('.nav-menu');
+                        const menuBtn = document.querySelector('.mobile-menu-btn');
+                        if (navMenu && navMenu.classList.contains('active')) {
+                            navMenu.classList.remove('active');
+                            menuBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
             });
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+        }
 
         // Back to top functionality
         function scrollToTop() {
@@ -1808,81 +2489,130 @@
             });
         }
 
-        // Show/hide back to top button
-        window.addEventListener('scroll', () => {
-            const backToTop = document.querySelector('.back-to-top');
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
+        // Enhanced header and scroll management
+        let ticking = false;
 
-            // Update header background on scroll
+        function updateHeader() {
             const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = '#ffffff';
-                header.style.backdropFilter = 'none';
+            if (header) {
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.backdropFilter = 'blur(15px)';
+                } else {
+                    header.style.background = '#ffffff';
+                    header.style.backdropFilter = 'blur(10px)';
+                }
             }
-        });
+            ticking = false;
+        }
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            const navMenu = document.querySelector('.nav-menu');
-            const mobileBtn = document.querySelector('.mobile-menu-btn');
-            
-            if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
-                navMenu.classList.remove('active');
+        function requestHeaderUpdate() {
+            if (!ticking) {
+                requestAnimationFrame(updateHeader);
+                ticking = true;
             }
-        });
-
-        // Tag cloud interactions
-        document.querySelectorAll('.tag-cloud-item').forEach(tag => {
-            tag.addEventListener('click', (e) => {
-                e.preventDefault();
-                const tagText = tag.textContent.toLowerCase();
-                
-                // Search for posts containing this tag
-                const postCards = document.querySelectorAll('.post-card');
-                postCards.forEach(card => {
-                    const tags = Array.from(card.querySelectorAll('.post-tag')).map(t => t.textContent.toLowerCase());
-                    card.style.display = tags.some(t => t.includes(tagText)) ? 'grid' : 'none';
-                });
-
-                // Scroll to posts
-                document.querySelector('.posts-section').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        }
 
         // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM loaded, initializing blog...');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize blog manager
+            blogManager = new BlogManager();
             
-            // Initialize filtered posts with all posts
-            filteredPosts = getAllPosts();
+            // Initialize smooth scrolling
+            initSmoothScrolling();
             
-            // Initialize filters
-            initializeFilters();
-            
-            // Show first page
-            currentPage = 1;
-            showPage(currentPage);
-            
-            console.log('Blog initialization complete');
-            console.log('Total posts found:', filteredPosts.length);
+            // Setup scroll events
+            window.addEventListener('scroll', () => {
+                // Update header
+                requestHeaderUpdate();
+                
+                // Show/hide back to top button
+                const backToTop = document.querySelector('.back-to-top');
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }, { passive: true });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const navMenu = document.querySelector('.nav-menu');
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                
+                if (navMenu && menuBtn && 
+                    !navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Enhanced keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    // Close mobile menu
+                    const navMenu = document.querySelector('.nav-menu');
+                    const menuBtn = document.querySelector('.mobile-menu-btn');
+                    if (navMenu && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                        menuBtn.focus();
+                    }
+                }
+                
+                // Quick search with '/' key
+                if (e.key === '/' && !e.target.matches('input, textarea')) {
+                    e.preventDefault();
+                    const searchInput = document.getElementById('searchInput');
+                    if (searchInput) {
+                        searchInput.focus();
+                    }
+                }
+            });
+
+            // Search input enhancements
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                let searchTimeout;
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        if (blogManager) {
+                            blogManager.search(this.value);
+                        }
+                    }, 500); // Real-time search with debounce
+                });
+            }
+
+            // Enhanced loading state
+            window.addEventListener('load', () => {
+                document.body.classList.add('loaded');
+                
+                // Performance logging
+                if ('performance' in window) {
+                    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                    console.log('Blog page load time:', loadTime + 'ms');
+                }
+            });
+
+            // Enhanced viewport height calculation for mobile
+            function setViewportHeight() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+
+            setViewportHeight();
+            window.addEventListener('resize', setViewportHeight, { passive: true });
+            window.addEventListener('orientationchange', setViewportHeight, { passive: true });
+
+            // Console welcome message
+            console.log('🎓 Welcome to Azeez Hamzat\'s Blog!');
+            console.log('📝 Exploring Collective Intelligence & Cross-Cultural Experiences');
+            console.log('🔗 Connect: https://linkedin.com/in/azeezhamzat');
         });
 
-        // Performance monitoring
-        if ('performance' in window) {
-            window.addEventListener('load', () => {
-                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-                console.log('Blog page load time:', loadTime + 'ms');
-            });
-        }
+        // Export blog manager for external access if needed
+        window.BlogManager = BlogManager;
     </script>
 </body>
 </html>
